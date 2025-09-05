@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avalon X</title>
+    <meta name="description" content="Elevate your Discord server with AI-powered moderation, customizable welcome messages, music streaming, and powerful utilities.">
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="Avalon X - Web">
+    <meta property="og:description" content="Elevate your Discord server with AI-powered moderation, customizable welcome messages, music streaming, and powerful utilities.">
+    <meta property="og:image" content="https://cdn.discordapp.com/avatars/1373611245206372444/f847c5205b749a3490607ad8a308d77f.png?size=1024">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/avatars/1373611245206372444/f847c5205b749a3490607ad8a308d77f.png?size=1024" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-padding-top: 90px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .hero .description {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+        
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            animation: fadeInUp 1s ease;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            color: #ffd700;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .feature-description {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .step-description {
+            opacity: 0.8;
+        }
+        
+        /* Demo Section */
+        .demo {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active,
+        .tab-btn:hover {
+            background: #ffffff;
+            color: #333;
+        }
+        
+        .demo-content {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .chat-demo {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .message-content {
+            max-width: 70%;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffd700;
+        }
+        
+        .message-text {
+            opacity: 0.9;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+        }
+        
+        .feature-item::before {
+            content: "✓";
+            color: #ffd700;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo" data-testid="logo-avalon-x">
+                <img src="https://cdn.discordapp.com/avatars/1373611245206372444/f847c5205b749a3490607ad8a308d77f.png?size=64" alt="Avalon X Logo">
+                Avalon X
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features" data-testid="link-features">Features</a></li>
+                <li><a href="#how-it-works" data-testid="link-how-it-works">How It Works</a></li>
+                <li><a href="#demo" data-testid="link-demo">Demo</a></li>
+                <li><a href="https://discord.gg/Zg2XkS5hq9" target="_blank" rel="noopener noreferrer" data-testid="link-support">Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-testid="text-main-title">Discord Bot</h1>
+            <p class="subtitle" data-testid="text-subtitle">Meet Avalon X - Your Ultimate Discord Assistant</p>
+            <p class="description" data-testid="text-description">
+                Elevate your Discord server with AI-powered moderation, customizable welcome messages, music streaming, and powerful utilities.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1373611245206372444&permissions=8&integration_type=0&scope=bot" class="btn btn-primary" data-testid="button-add-to-discord" target="_blank" rel="noopener noreferrer">Add to Discord</a>
+                <a href="#features" class="btn btn-secondary" data-testid="button-explore-features">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-testid="stat-servers">
+                    <span class="stat-number">80+</span>
+                    <span class="stat-label">Active Servers</span>
+                </div>
+                <div class="stat-item" data-testid="stat-users">
+                    <span class="stat-number">8k+</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat-item" data-testid="stat-uptime">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-testid="text-features-title">Powerful Features</h2>
+            <p class="section-subtitle" data-testid="text-features-subtitle">Everything you need to create an engaging, well-moderated, and fun Discord community.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-testid="card-feature-automod">
+                    <span class="feature-icon">🛡️</span>
+                    <h3 class="feature-title">Auto Moderation</h3>
+                    <p class="feature-description">A powerful automoderation which protects your server from raid and spam links!</p>
+                </div>
+                
+                <div class="feature-card" data-testid="card-feature-advanced-mod">
+                    <span class="feature-icon">⚖️</span>
+                    <h3 class="feature-title">Advanced Moderation</h3>
+                    <p class="feature-description">Auto-moderate content, filter spam, and keep your server safe with customizable rules.</p>
+                </div>
+                
+                <div class="feature-card" data-testid="card-feature-music">
+                    <span class="feature-icon">🎵</span>
+                    <h3 class="feature-title">High Quality Music</h3>
+                    <p class="feature-description">Stream high-quality music from YouTube, Spotify, and other platforms with no interruptions.</p>
+                </div>
+                
+                <div class="feature-card" data-testid="card-feature-welcome">
+                    <span class="feature-icon">👋</span>
+                    <h3 class="feature-title">Welcome System</h3>
+                    <p class="feature-description">Create custom welcome messages, roles, and onboarding experiences for new members.</p>
+                </div>
+                
+                <div class="feature-card" data-testid="card-feature-tickets">
+                    <span class="feature-icon">🎫</span>
+                    <h3 class="feature-title">Ticket Panel</h3>
+                    <p class="feature-description">Create your own Ticket panel with easy setup and very useful system for your server support.</p>
+                </div>
+                
+                <div class="feature-card" data-testid="card-feature-utilities">
+                    <span class="feature-icon">🛠️</span>
+                    <h3 class="feature-title">Smart Utilities</h3>
+                    <p class="feature-description">Schedule events, create polls, manage roles, and more with easy-to-use commands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title" data-testid="text-how-it-works-title">How It Works</h2>
+            <p class="section-subtitle" data-testid="text-how-it-works-subtitle">Getting started with Avalon X is simple and takes less than 2 minutes.</p>
+            
+            <div class="steps-grid">
+                <div class="step" data-testid="step-invite">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">Invite Avalon X</h3>
+                    <p class="step-description">Add Avalon X to your server with just a few commands.</p>
+                </div>
+                
+                <div class="step" data-testid="step-configure">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">Configure Settings</h3>
+                    <p class="step-description">Customize Avalon X to match your server's needs with our antinuke & Automod</p>
+                </div>
+                
+                <div class="step" data-testid="step-enjoy">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">Enjoy the Benefits</h3>
+                    <p class="step-description">Let Avalon X handle moderation, entertainment, and engagement while you focus on growing your community.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="https://discord.com/oauth2/authorize?client_id=1373611245206372444&permissions=8&integration_type=0&scope=bot" class="btn btn-primary" data-testid="button-get-started" target="_blank" rel="noopener noreferrer">Get Started Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <h2 class="section-title" data-testid="text-demo-title">See Avalon X in Action</h2>
+            <p class="section-subtitle" data-testid="text-demo-subtitle">Take a look at how Avalon X transforms Discord servers with its powerful features.</p>
+            
+            <div class="demo-tabs">
+                <button class="tab-btn active" data-testid="tab-moderation" onclick="showDemo(event, 'moderation')">Moderation</button>
+                <button class="tab-btn" data-testid="tab-music" onclick="showDemo(event, 'music')">Music Player</button>
+                <button class="tab-btn" data-testid="tab-welcome" onclick="showDemo(event, 'welcome')">Welcome System</button>
+            </div>
+            
+            <div class="demo-content">
+                <div id="moderation-demo" class="demo-panel">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: #ffd700;" data-testid="text-moderation-demo-title">Smart Auto Moderation</h3>
+                    <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;" data-testid="text-moderation-demo-description">Avalon X automatically detects and removes spam, inappropriate content, and raid attempts before they disrupt your server.</p>
+                    
+                    <div class="chat-demo">
+                        <div class="message user-message" data-testid="message-user-spam">
+                            <div class="message-content">
+                                <div class="message-author">User123</div>
+                                <div class="message-text">[Spam message with links]</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message bot-message" data-testid="message-bot-response">
+                            <img src="https://cdn.discordapp.com/avatars/1373611245206372444/f847c5205b749a3490607ad8a308d77f.png?size=64" alt="Avalon X" class="message-avatar">
+                            <div class="message-content">
+                                <div class="message-author">Avalon X</div>
+                                <div class="message-text">Message removed: Detected spam (5 links). User warned automatically.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="music-demo" class="demo-panel" style="display: none;">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: #ffd700;">High Quality Music Streaming</h3>
+                    <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Enjoy crystal clear music streaming with queue management and playlist support.</p>
+                    
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; display: inline-block;">
+                            <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px;">🎵 Now Playing</div>
+                            <div style="font-weight: bold; margin-bottom: 5px;">Amazing Song Title</div>
+                            <div style="opacity: 0.8;">Artist Name • 3:45</div>
+                            <div style="margin-top: 15px;">
+                                <span style="background: #ffd700; color: #333; padding: 5px 10px; border-radius: 5px; margin: 0 5px;">⏮️</span>
+                                <span style="background: #ffd700; color: #333; padding: 5px 10px; border-radius: 5px; margin: 0 5px;">⏸️</span>
+                                <span style="background: #ffd700; color: #333; padding: 5px 10px; border-radius: 5px; margin: 0 5px;">⏭️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="welcome-demo" class="demo-panel" style="display: none;">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: #ffd700;">Custom Welcome Messages</h3>
+                    <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Create personalized welcome experiences for every new member.</p>
+                    
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; display: inline-block; max-width: 400px;">
+                            <div style="color: #ffd700; font-size: 1.2rem; margin-bottom: 15px;">🎉 Welcome to the Server!</div>
+                            <div style="margin-bottom: 10px;">Hey @NewUser, welcome to our amazing community!</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">You are member #1,234</div>
+                            <div style="margin-top: 15px; color: #ffd700;">✅ Role assigned: Member</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 data-testid="text-cta-title">Ready to Transform Your Discord Server?</h2>
+            <p data-testid="text-cta-description">Join thousands of Discord communities already using Avalon X to engage members, moderate content, and create a better server experience.</p>
+            
+            <div class="cta-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1373611245206372444&permissions=8&integration_type=0&scope=bot" class="btn btn-primary" data-testid="button-add-to-discord-cta" target="_blank" rel="noopener noreferrer">Add to Discord</a>
+                <a href="https://discord.gg/Zg2XkS5hq9" class="btn btn-secondary" data-testid="button-join-support" target="_blank" rel="noopener noreferrer">Join Support Server</a>
+            </div>
+            
+            <div class="features-list">
+                <div class="feature-item" data-testid="feature-free-tier">Free tier available</div>
+                <div class="feature-item" data-testid="feature-quick-setup">Quick setup</div>
+                <div class="feature-item" data-testid="feature-support">24/7 support</div>
+                <div class="feature-item" data-testid="feature-updates">Regular updates</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-testid="text-footer">&copy; 2025 Avalon X. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Demo tabs functionality
+        function showDemo(event, demoType) {
+            // Hide all demo panels
+            const panels = document.querySelectorAll('.demo-panel');
+            panels.forEach(panel => panel.style.display = 'none');
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected panel and activate tab
+            document.getElementById(demoType + '-demo').style.display = 'block';
+            event.target.classList.add('active');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all feature cards and steps after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.feature-card, .step, .stat-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
